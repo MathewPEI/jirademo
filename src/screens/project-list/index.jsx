@@ -1,10 +1,10 @@
 import React from 'react'
 import apiUrl from 'json_server'
-import { SearchPanel } from "./search-panel"
-import { List } from "./list"
-import { useEffect, useState } from "react"
-import { cleanObject } from 'utils'
-import * as qs from "qs"
+import { SearchPanel } from './search-panel'
+import { List } from './list'
+import { useEffect, useState } from 'react'
+import { cleanObject, useMount } from 'utils'
+import * as qs from 'qs'
 
 export const ProjectListScreen = () => {
   const [param, setParam] = useState({
@@ -20,13 +20,13 @@ export const ProjectListScreen = () => {
       }
     })
   }, [param])
-  useEffect(()=>{
+  useMount(()=>{
     fetch(`${apiUrl}/users`).then(async res=>{
       if(res.ok){
         setUsers(await res.json())
       }
     })
-  },[])
+  })
   return <div>
     <SearchPanel param={param} setParam={setParam} users={users}></SearchPanel>
     <List list={list} users={users}></List>
