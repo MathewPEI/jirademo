@@ -3,7 +3,7 @@ import apiUrl from 'json_server'
 
 export const LoginScreen = () => {
   const login = (param: {username:string, password:string}) =>{
-    fetch(`${apiUrl}/login?`, {
+    fetch(`${apiUrl}/login`, {
       method: 'POST',
       headers: {
         'content-Type':'application/json'
