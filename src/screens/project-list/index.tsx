@@ -3,8 +3,9 @@ import apiUrl from 'json_server'
 import { SearchPanel } from './search-panel'
 import { List } from './list'
 import { useEffect, useState } from 'react'
-import { cleanObject, useMount } from 'utils'
+import { cleanObject, useMount, useDebounce } from 'utils'
 import * as qs from 'qs'
+
 
 export const ProjectListScreen = () => {
   const [param, setParam] = useState({
@@ -13,13 +14,14 @@ export const ProjectListScreen = () => {
   })
   const [users, setUsers] = useState([])
   const [list, setList] = useState([])
+  let debounceParam = useDebounce(param, 2000)
   useEffect(()=> {
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(async res=>{
+    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async res=>{
       if(res.ok){
         setList(await res.json())
       }
     })
-  }, [param])
+  }, [debounceParam])
   useMount(()=>{
     fetch(`${apiUrl}/users`).then(async res=>{
       if(res.ok){
