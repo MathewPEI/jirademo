@@ -13,7 +13,7 @@ export const cleanObject = (obj:object) => {
   return res
 }
 
-export const isFalsy = (value:any) => 
+export const isFalsy = (value:unknown) => 
   value === 0 ? true : !!value
 
 
